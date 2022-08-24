@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-from django.contrib.auth.forms import UserCreationForm 
+from .forms import RegisterForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -15,7 +15,7 @@ def login_user(request):
         email = request.POST["email"]
         password = request.POST["password"]
         user = authenticate(request, email=email, password=password )
-        print(user)
+        
 
         if user is not None:
             login(request, user)
@@ -23,9 +23,31 @@ def login_user(request):
         else:
             messages.error(request, "E-mail or password is incorrect")
             
+    
+    return render(request, "users/login_register.html",)
+
+def logout_user(request):
+    logout(request)
+    return redirect("home")
 
 
 
-    form = UserCreationForm
-    context = {"form":form}
+def register(request):
+    page = "register"
+    form = RegisterForm()
+
+
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+
+            user = form.save()
+            messages.success(request, "User successfuly created")
+            login(request, user)
+            return redirect("home")
+        else:
+            messages.error(request, "Error during registration")
+    
+    
+    context = {"form":form, "page":page}
     return render(request, "users/login_register.html", context)
