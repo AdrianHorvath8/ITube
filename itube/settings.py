@@ -56,6 +56,10 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
+AUTH_USER_MODEL = 'users.MyUser'
+
+
+
 ROOT_URLCONF = 'itube.urls'
 
 TEMPLATES = [
@@ -84,8 +88,12 @@ WSGI_APPLICATION = 'itube.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("DB_NAME_IT"),
+        'USER': os.environ.get("DB_USER_IT"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"), 
+        'HOST': os.environ.get("DB_HOST_IT"),
+        'PORT': '5432',
     }
 }
 
@@ -140,3 +148,5 @@ STATCFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

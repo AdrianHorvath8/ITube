@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+
+    {% if page == login %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <label>E-mail:</label>
+            <input type="email" name="email" placeholder="Email...">
+            <p></p>
+
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Password...">
+            <p></p>
+
+            <input type="Submit" name="" value="Login">
+
+        </form>
+
+
+
+    {% endif %}
+
+{% endblock content %}

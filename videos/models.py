@@ -11,6 +11,7 @@ class Video(models.Model):
     owner = models.ForeignKey("users.Profile", on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(blank=True, null=True, max_length=200)
     #body = models.FileField(upload_to=)
+    #thumbnnail = models.ImageField()
     views = models.ManyToManyField("users.Profile", blank=True, related_name="views")
     like = models.ManyToManyField("users.Profile", blank=True, related_name="like")
     dislike = models.ManyToManyField("users.Profile", blank=True, related_name="dislike")
