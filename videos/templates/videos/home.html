@@ -3,6 +3,16 @@
 
 {% block content %}
 
-<h1> {{ request.user.profile }}</h1>
+    <h1> {{ request.user.profile }}</h1>
+
+    {% for video in videos %}
+        {% if video.body %}
+        <div class="ratio ratio-16x9">
+            <iframe src="{{ video.body.url }}" title="YouTube video" allowfullscreen >
+        
+            </iframe>
+        </div>
+        {% endif %}
+    {% endfor %}
 
 {% endblock content %}

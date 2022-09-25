@@ -1,4 +1,5 @@
 
+from re import T
 from django.db import models
 import uuid
 
@@ -18,8 +19,8 @@ class Video(models.Model):
     primary_key=True, editable=False)
     owner = models.ForeignKey("users.Profile", on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(blank=True, null=True, max_length=200)
-    #body = models.FileField(upload_to=)
-    thumbnnail = models.ImageField(null=False, blank=False, upload_to="videos_thumbnail/", default="videos_thumbnail/video_thumbnail_default.png")
+    body = models.FileField(upload_to="videos", null=True, blank=True)
+    thumbnnail = models.ImageField(null=False, blank=False, upload_to="images/videos_thumbnail/", default="images/videos_thumbnail/video_thumbnail_default.png")
     views = models.ManyToManyField("users.Profile", blank=True, related_name="views")
     like = models.ManyToManyField("users.Profile", blank=True, related_name="like")
     dislike = models.ManyToManyField("users.Profile", blank=True, related_name="dislike")
