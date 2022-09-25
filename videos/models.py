@@ -1,9 +1,17 @@
 
-from re import T
 from django.db import models
 import uuid
 
 
+class Tag(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+    primary_key=True, editable=False)
+    name = models.TextField(max_length=100, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.name
 
 class Video(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
@@ -17,7 +25,7 @@ class Video(models.Model):
     dislike = models.ManyToManyField("users.Profile", blank=True, related_name="dislike")
     #comments = models.ForeignKey(Comments)
     description = models.TextField(blank=True, null=True, max_length= 500)
-    #tag = models.ManyToManyField(Tag)
+    tag = models.ManyToManyField(Tag, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
