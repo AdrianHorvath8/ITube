@@ -1,21 +1,38 @@
 {% extends "main.html" %}
-
-
 {% block content %}
-    <div class="container">
+
+
+<style>
+    .main-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+
+    .video{
+        margin: 20px;
+    }
+
+    video{
+        max-width: 1100px;
+    }
+</style>
+
+
+    <div class="main-container">
 
 
         <div class="video">
-            <h3 class="text-center mt-2 mb-2">{{video.title}}</h3>
-            <video class="embed-responsive embed-responsive-16by9" controls="controls" autoplay style="max-width: 800px;">
+            
+            <video class="embed-responsive embed-responsive-16by9" controls="controls" autoplay >
                 <source src="{{video.body.url}}" type="video/mp4" />
             </video>
+            <h3 class="text-left mt-2 mb-2">{{video.title}}</h3>
         </div>
 
 
         <div class="video_list">
 
-
+        aasdasd
         </div>
     
 

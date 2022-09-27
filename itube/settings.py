@@ -63,6 +63,8 @@ AUTH_USER_MODEL = 'users.MyUser'
 
 ROOT_URLCONF = 'itube.urls'
 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
