@@ -62,6 +62,7 @@ class Profile(models.Model):
     public_list = models.ForeignKey("videos.Video", on_delete=models.SET_NULL, related_name="public" , null=True, blank=True)
     email = models.EmailField(max_length=200,null=True, blank=True, unique=True)
     short_info = models.CharField(max_length=200, null=True, blank=True)
+    following = models.ManyToManyField(MyUser,related_name="following", blank=True)
     followers = models.ManyToManyField(MyUser,related_name="followers", blank=True)
     history = models.ManyToManyField("videos.Video", blank=True, related_name="history")
     favorite_video = models.ManyToManyField("videos.Video", blank=True)

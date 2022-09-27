@@ -1,6 +1,7 @@
+
 from django.shortcuts import render
 
-from .models import Video
+from .models import Video, Comment
 
 def home(request):
     viedos = Video.objects.all()
@@ -11,5 +12,6 @@ def home(request):
 def video(request, pk):
 
     video = Video.objects.get(id=pk)
-    context = {"video":video}
+    comments = Comment.objects.filter(video=video)
+    context = {"video":video, "comments":comments}
     return render(request, "videos/video.html", context)
