@@ -3,30 +3,82 @@
 
 
 <style>
-    .main-container {
+    .comment-container {
         display: grid;
         grid-template-columns: 3fr 1fr;
+        
     }
 
-    .video{
+    .content{
         margin: 20px;
+        padding-left: 20px;
     }
 
     video{
-        max-width: 1100px;
+        max-width: 1212px;
+        max-height: 682px;
+    }
+
+    .comment-profile-image{
+        height: 38px;
+        border-radius: 19px;
+
+    }
+
+    .comment-creation-date{
+        font-size: 12px;
+        color: rgb(96, 96, 96);
+        display: inline;
+    }
+
+    .comment{
+        display: grid;
+        grid-template-columns: 1fr 15fr;
+        margin-bottom: 20px;
     }
 </style>
 
 
-    <div class="main-container">
+    <div class="comment-container">
 
 
-        <div class="video">
+        <div class="content">
             
             <video class="embed-responsive embed-responsive-16by9" controls="controls" autoplay >
                 <source src="{{video.body.url}}" type="video/mp4" />
             </video>
             <h3 class="text-left mt-2 mb-2">{{video.title}}</h3>
+
+
+
+            {% for comment in comments %}
+            <div class="comment">
+                <div>
+                    <!-- picture -->
+                    <img class="comment-profile-image" src="{{ comment.owner.profile_image.url }}" >
+                </div>
+
+                <div>
+                    <!-- content -->
+
+                    <div>
+                        <!-- meno -->
+                        {{ comment.owner }} <p class="comment-creation-date" tabindex="-1">{{comment.created|timesince}}</p>
+                    </div>
+
+                    <div>
+                        <!-- comment body -->
+                        {{ comment.body }}
+                    </div>
+
+                    <div>
+                        <!-- like dislike heard replies ... -->
+                    </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
         </div>
 
 
@@ -36,9 +88,6 @@
         </div>
     
 
-    {% for comment in comments %}
-        {{ comment }}
-    {% endfor %}
 
 
 

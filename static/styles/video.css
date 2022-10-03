@@ -9,6 +9,8 @@ p {
 
 .thumbnail {
     max-width: 100%;
+    max-height: 150px;
+    object-fit: contain;
     margin-bottom: 10px;
 }
 
@@ -48,4 +50,11 @@ p {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 16px;
     row-gap: 30px;
+}
+
+
+
+.home-container{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
 }

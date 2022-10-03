@@ -1,4 +1,5 @@
 
+from email.policy import default
 from django.db import models
 import uuid
 
@@ -42,6 +43,7 @@ class Comment(models.Model):
     owner = models.ForeignKey("users.Profile", on_delete=models.SET_NULL, blank=True, null=True)
     video = models.ForeignKey(Video, on_delete=models.CASCADE, blank=True, null=True)
     body = models.CharField(blank=True, null=True, max_length=500)
+    heart = models.BooleanField(default=False)
     like = models.ManyToManyField("users.Profile", blank=True, related_name="like")
     dislike = models.ManyToManyField("users.Profile", blank=True, related_name="dislike")
     created = models.DateTimeField(auto_now_add=True)
