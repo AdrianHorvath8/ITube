@@ -36,7 +36,7 @@
         <div class="video-container">
 
             {% for video in videos %}
-            <div class="video-preview">
+            <div >
                 <div>
                     <a href="{% url 'video' pk=video.id %}">
                         <img class="thumbnail" src="{{ video.thumbnnail.url }}" alt="">
@@ -58,7 +58,7 @@
                     </div>
     
                 </div>
-    
+                
             </div>
             {% endfor %}
 

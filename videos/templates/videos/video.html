@@ -26,15 +26,27 @@
     }
 
     .comment-creation-date{
-        font-size: 12px;
+        font-size: 10px;
         color: rgb(96, 96, 96);
         display: inline;
     }
 
     .comment{
         display: grid;
-        grid-template-columns: 1fr 15fr;
+        grid-template-columns: 1fr 11fr;
         margin-bottom: 20px;
+    }
+
+    .comment-profile-name{
+        font-size: 12px;
+        display: inline;
+        font-weight: bold;
+    }
+
+    .comment-body{
+
+        font-size: 13px;
+        display: inline;
     }
 </style>
 
@@ -63,12 +75,12 @@
 
                     <div>
                         <!-- meno -->
-                        {{ comment.owner }} <p class="comment-creation-date" tabindex="-1">{{comment.created|timesince}}</p>
+                        <p class="comment-profile-name">{{ comment.owner }}</p> <p class="comment-creation-date" tabindex="-1">{{comment.created|timesince}}</p>
                     </div>
 
                     <div>
                         <!-- comment body -->
-                        {{ comment.body }}
+                        <p class="comment-body">{{ comment.body }}</p>
                     </div>
 
                     <div>
@@ -83,8 +95,33 @@
 
 
         <div class="video_list">
-
-        aasdasd
+            {% for video in video_list %}
+                <div class="video-preview">
+                    <div>
+                        <a href="{% url 'video' pk=video.id %}">
+                            <img class="thumbnail" src="{{ video.thumbnnail.url }}" alt="">
+                        </a>
+                    </div>
+                    
+                
+                    <div class="video-info">
+                        <a href="{% url 'video' pk=video.id %}">
+                            <p class="video-title">{{ video.title }}</p>
+                        </a>
+            
+                        <a href="TODO">
+                            <p class="video-author">{{ video.owner }}</p>
+                        </a>
+            
+                        <a href="{% url 'video' pk=video.id %}">
+                            <p class="video-stats">3.4M views &#183; {{ video.created|timesince}} ago</p>
+                        </a>
+                    </div>
+            
+                    
+                
+                </div>
+            {% endfor %}
         </div>
     
 

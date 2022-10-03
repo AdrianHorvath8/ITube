@@ -1,8 +1,9 @@
 
 from email.policy import default
+from tkinter import Image
 from django.db import models
 import uuid
-
+from PIL import Image
 
 class Tag(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
@@ -33,6 +34,19 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.thumbnnail)
+
+
+        if img.height > 100 or img.width >100:
+            
+            output_size = (682,1212)
+            img.thumbnail(output_size)
+            img.save(self.thumbnnail.path)
+        
+    #tu si skončil riešiš video thumbnail size
 
 
 

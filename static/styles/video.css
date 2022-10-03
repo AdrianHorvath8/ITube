@@ -58,3 +58,10 @@ p {
     display: grid;
     grid-template-columns: 1fr 5fr;
 }
+
+.video-preview{
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    column-gap: 10px;
+    
+}
