@@ -5,33 +5,7 @@
 
     <div class="home-container">
 
-        <div class="home-navbar">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Subscriptions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Library</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Your videos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Watch later</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Liked videos</a>
-                </li>
-
-                
-            </ul>
-        </div>
+        {% include 'menu.html' %}
         
         {% if search_query == "" %}
         <div class="video-container">
