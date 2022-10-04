@@ -5,11 +5,15 @@ from .models import Video, Comment
 
 
 def home(request):
-    
+    search_query = ""
 
+    if request.GET.get("search_query"):
+        search_query = request.GET.get("search_query")
+
+    searched_videos = Video.objects.filter(title__icontains = search_query)
     viedos = Video.objects.all()
     
-    context = {"videos":viedos,}
+    context = {"videos":viedos,"searched_videos":searched_videos, "search_query":search_query}
     return render(request, "videos/home.html", context)
 
 

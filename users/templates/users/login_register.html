@@ -1,43 +1,52 @@
-{% extends "main.html" %}
-
-
-{% block content %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITube</title>
+</head>
+<body>
+    
+    
     {% if page == "register" %}
-        <form action="" method="POST">
-            {% csrf_token %}
-        
-            {% for field in form %}
-            <label>{{ field.label }}:</label>
-            {{ field }}
-            <p></p>
-            {% endfor %}
-            
-            <input type="Submit" name="" value="Register">
-        </form>
-        
-        <p>Already have account? <a href="{% url 'login' %}">Log in</a></p>
-
-
+    <form action="" method="POST">
+        {% csrf_token %}
+    
+        {% for field in form %}
+        <label>{{ field.label }}:</label>
+        {{ field }}
+        <p></p>
+        {% endfor %}
+    
+        <input type="Submit" name="" value="Register">
+    </form>
+    
+    <p>Already have account? <a href="{% url 'login' %}">Log in</a></p>
+    
+    
     {% else %}
-        
-        <form action="" method="POST">
-            {% csrf_token %}
-        
-            <label>E-mail:</label>
-            <input type="email" name="email" placeholder="Email...">
-            <p></p>
-        
-            <label>Password:</label>
-            <input type="password" name="password" placeholder="Password...">
-            <p></p>
-        
-            <input type="Submit" name="" value="Login">
-        
-        </form>
-        
-        <p>Dont have account? <a href="{% url 'register' %}">Sign in</a></p>
-
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+    
+        <label>E-mail:</label>
+        <input type="email" name="email" placeholder="Email...">
+        <p></p>
+    
+        <label>Password:</label>
+        <input type="password" name="password" placeholder="Password...">
+        <p></p>
+    
+        <input type="Submit" name="" value="Login">
+    
+    </form>
+    
+    <p>Dont have account? <a href="{% url 'register' %}">Sign in</a></p>
+    <a href="{% url 'reset_password' %}">Forgot your password?</a>
+    
     {% endif %}
-
-{% endblock content %}
+    
+    
+</body>
+</html>

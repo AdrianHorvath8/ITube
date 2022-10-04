@@ -7,7 +7,8 @@
     border-style: solid;
     border-width: 1px;
     border-radius: 2px;
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.15)  ;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.15);
+    
     
 }
 
@@ -30,7 +31,7 @@
     
     flex: 1;
     margin-left: 60px;
-    max-width: 500px;
+    max-width: 650px;
     align-items: center;
     display: flex;
 }
@@ -86,6 +87,17 @@
 .voice-search-icon{
     height: 38px;
     width: 25px;
+}
+
+.login{
+
+    background-color: white;
+    border-radius: 3px;
+    border-color: rgb(6,95,212);
+    color: rgb(6, 95, 212);
+    border-width: 1px;
+    font-weight: 7px;
+
 }
 
 

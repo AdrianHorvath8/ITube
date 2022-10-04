@@ -32,14 +32,15 @@
                 
             </ul>
         </div>
-    
+        
+        {% if search_query == "" %}
         <div class="video-container">
 
             {% for video in videos %}
             <div >
                 <div>
                     <a href="{% url 'video' pk=video.id %}">
-                        <img class="thumbnail" src="{{ video.thumbnnail.url }}" alt="">
+                        <img class="thumbnail" src="{{ video.thumbnail.url }}" alt="">
                     </a>
                 </div>
                 <div class="video-info-container">
@@ -61,10 +62,40 @@
                 
             </div>
             {% endfor %}
-
-    
     
         </div>
+        {% else %}
+
+            <div class="video_list">
+                {% for video in searched_videos %}
+                <div class="video-preview">
+                    <div>
+                        <a href="{% url 'video' pk=video.id %}">
+                            <img class="thumbnail" src="{{ video.thumbnail.url }}" alt="">
+                        </a>
+                    </div>
+            
+            
+                    <div class="video-info">
+                        <a href="{% url 'video' pk=video.id %}">
+                            <p class="video-title">{{ video.title }}</p>
+                        </a>
+            
+                        <a href="TODO">
+                            <p class="video-author">{{ video.owner }}</p>
+                        </a>
+            
+                        <a href="{% url 'video' pk=video.id %}">
+                            <p class="video-stats">3.4M views &#183; {{ video.created|timesince}} ago</p>
+                        </a>
+                    </div>
+            
+            
+            
+                </div>
+                {% endfor %}
+
+        {% endif %}
     </div>
 
 {% endblock content %}

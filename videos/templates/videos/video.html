@@ -48,6 +48,9 @@
         font-size: 13px;
         display: inline;
     }
+    .video_list{
+        padding-top: 20px;
+    }
 </style>
 
 
@@ -99,7 +102,7 @@
                 <div class="video-preview">
                     <div>
                         <a href="{% url 'video' pk=video.id %}">
-                            <img class="thumbnail" src="{{ video.thumbnnail.url }}" alt="">
+                            <img class="thumbnail" src="{{ video.thumbnail.url }}" alt="">
                         </a>
                     </div>
                     

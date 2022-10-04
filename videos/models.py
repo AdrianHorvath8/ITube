@@ -3,7 +3,8 @@ from email.policy import default
 from tkinter import Image
 from django.db import models
 import uuid
-from PIL import Image
+
+from django_resized import ResizedImageField
 
 class Tag(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
@@ -24,7 +25,7 @@ class Video(models.Model):
     owner = models.ForeignKey("users.Profile", on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(blank=True, null=True, max_length=200)
     body = models.FileField(upload_to="videos", null=True, blank=True)
-    thumbnnail = models.ImageField(null=False, blank=False, upload_to="images/videos_thumbnail/", default="images/videos_thumbnail/video_thumbnail_default.png")
+    thumbnail = ResizedImageField(size=[600, 338], crop=['middle', 'center'],null=False, blank=False, upload_to="images/videos_thumbnail/", default="images/videos_thumbnail/video_thumbnail_default.png")
     views = models.ManyToManyField("users.Profile", blank=True, related_name="views")
     like = models.ManyToManyField("users.Profile", blank=True, related_name="likes")
     dislike = models.ManyToManyField("users.Profile", blank=True, related_name="dislikes")
@@ -35,18 +36,6 @@ class Video(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        img = Image.open(self.thumbnnail)
-
-
-        if img.height > 100 or img.width >100:
-            
-            output_size = (682,1212)
-            img.thumbnail(output_size)
-            img.save(self.thumbnnail.path)
-        
-    #tu si skončil riešiš video thumbnail size
 
 
 
