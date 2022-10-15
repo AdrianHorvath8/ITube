@@ -51,6 +51,9 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = "User"
         verbose_name_plural = "Users"
 
+
+
+
 class Profile(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
     primary_key=True, editable=False)
@@ -76,3 +79,13 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.channel_name)
 
+
+
+class Bell(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+    primary_key=True, editable=False)
+    owner = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    profile = models.ManyToManyField(Profile, blank=True, related_name="profiles")
+
+    def __str__(self):
+        return str(self.profile)

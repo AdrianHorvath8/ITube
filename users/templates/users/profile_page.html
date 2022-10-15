@@ -1,16 +1,141 @@
 {% extends "main.html" %}
+{% load static %}
 {% block content %}
 
-<div class="home-container">
+<style>
+    .profile-container{
+        display: grid;
+        grid-template-columns:1fr 5fr  ;
+    }
 
+    .profile-content{
+        display: grid;
+        grid-template-rows:2fr 90px 60px 6fr  ;
+    }
+
+
+    .profile-thumbnail_picture{
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        
+        
+    }
+
+    .profile-image{
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 100%;
+        
+    }
+
+    .subscribe{
+        object-position: right;
+    }
+
+    .profile-information{
+        margin-bottom: 10px;
+        margin-top: 10px;
+        display: grid;
+        grid-template-columns: 1fr 7fr 2fr;
+        align-items: center;
+    }
+
+    .profile-options{
+        display: flex;
+        
+        align-items: center;
+
+    }
+
+    .profile-video-thumbnail{
+        max-width: 100%;
+        max-height: 125px;
+        object-fit: contain;
+        margin-bottom: 10px;
+    }
+
+    .profile-videos{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 16px;
+        row-gap: 30px;
+    }
+
+</style>
+
+
+
+<div class="profile-container">
     {% include 'menu.html' %}
 
     <div class="profile-content">
 
+        <div >
+            <!-- profile thumbnail picture -->
+            <img class="profile-thumbnail_picture" src="{{ profile.profile_thumbnail.url }}" alt="">
+        </div>
+        
+        <div class="profile-information">
+            <!-- profile picture + subscribers and buttons -->
+
+            <div>
+                <img class="profile-image" src="{{ profile.profile_image.url }}" alt="">
+            </div>
+
+            <div>
+                <p style="display: inline; margin-left: 25px;">{{ profile.channel_name }}</p>
+            </div>
+
+            <div>
+                 <a href=""><button class="subscribe">SUBSCRIBE</button></a> <!-- TODO<img src="{% static 'images/icons/notifications.svg' %}" alt=""> -->
+            </div>
+        
+        </div>
+        <div class="profile-options">
+            <!-- options to what you want to see -->
+            
+            <p> HOME VIDEOS PLAYLISTS COMUNITY CHANNELS ABOUT</p>
+        
+        </div>
+        
+        <div class="profile-videos">
+            <!-- videos -->
+            {% for video in videos %}
+            <div >
+                <div>
+                    <a href="{% url 'video' pk=video.id %}">
+                        <img class="profile-video-thumbnail" src="{{ video.thumbnail.url }}" alt="">
+                    </a>
+                </div>
+                <div class="profile-video-info-container">
+                    
+            
+                    <div class="video-info">
+                        <a href="{% url 'video' pk=video.id %}">
+                            <p class="video-title">{{ video.title }}</p>
+                        </a>
+            
+                        <a href="{% url 'profile' video.owner.id %}">
+                            <p class="video-author">{{ video.owner }}</p>
+                        </a>
+            
+                        <a href="{% url 'video' pk=video.id %}">
+                            <p class="video-stats">3.4M views &#183; {{ video.created|timesince}} ago</p>
+                        </a>
+                    </div>
+            
+                </div>
+            
+            </div>
+            {% endfor %}
+        
+        </div>
+
+
 
     </div>
 
-<!-- TODO tu si skončil ideš robiť profile page a rozmyšľal si nad zvončekom -->
 
 </div>
 

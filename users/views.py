@@ -2,6 +2,9 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
+
+from users.models import Profile
+from videos.models import Video
 from .forms import RegisterForm
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -52,3 +55,10 @@ def register(request):
     
     context = {"form":form, "page":page}
     return render(request, "users/login_register.html", context)
+
+
+def profile(request,pk):
+    profile = Profile.objects.get(id=pk)
+    videos = Video.objects.filter(owner=profile)
+    context = {"profile":profile, "videos":videos}
+    return render(request, "users/profile_page.html", context)

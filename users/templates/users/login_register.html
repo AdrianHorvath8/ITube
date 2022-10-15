@@ -7,15 +7,28 @@
     <title>ITube</title>
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     
     
     {% if page == "register" %}
+    <a href="{% url 'login' %}">&#8656</a>
     <form action="" method="POST">
         {% csrf_token %}
     
         {% for field in form %}
         <label>{{ field.label }}:</label>
         {{ field }}
+        {% for error in field.errors %}
+        <small style="color: red;">{{ error }}</small>
+        {% endfor %}
         <p></p>
         {% endfor %}
     
@@ -26,7 +39,7 @@
     
     
     {% else %}
-    
+    <a href="{% url 'home' %}">&#8656</a>
     <form action="" method="POST">
         {% csrf_token %}
     

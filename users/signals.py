@@ -1,6 +1,6 @@
 
 
-from .models import Profile, MyUser
+from .models import Profile, MyUser, Bell
 from django.db.models.signals import post_save, post_delete
 
 from django.dispatch import receiver
@@ -20,6 +20,13 @@ def create_profile(sender, instance, created, **kwargs):
 
         )
         profile.save()
+
+        bell = Bell.objects.create(
+            owner = profile
+        )
+        bell.save()
+
+
 
         subject = "ITube Team"
         message = "Thank you for registration to best startup project in the world <3"
