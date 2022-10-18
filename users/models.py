@@ -2,6 +2,7 @@ from django.db import models
 #from django.contrib.auth.models import User
 import uuid
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django_resized import ResizedImageField
 
 class CustomUserManager(BaseUserManager):
     def _create_user(self, email, password, channel_name, **extra_fields):
@@ -60,7 +61,7 @@ class Profile(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.CASCADE, null=True, blank=True)
     channel_name = models.CharField(max_length=150, null=True, blank=True, unique=True)
     profile_image = models.ImageField(null=False, blank=False, upload_to="images/profiles/", default="images/profiles/user-default.png")
-    profile_thumbnail = models.ImageField(null=False, blank=False, upload_to="images/profiles_thumbnail/", default="images/profiles_thumbnail/profile_thumbnail_default.png")
+    profile_thumbnail = ResizedImageField(size=[1036, 256], crop=['middle', 'center'],null=False, blank=False, upload_to="images/profiles_thumbnail/", default="images/profiles_thumbnail/profile_thumbnail_default.png")
     private_list = models.ForeignKey("videos.Video", on_delete=models.SET_NULL, related_name="private" , null=True, blank=True)
     public_list = models.ForeignKey("videos.Video", on_delete=models.SET_NULL, related_name="public" , null=True, blank=True)
     email = models.EmailField(max_length=200,null=True, blank=True, unique=True)
@@ -78,6 +79,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.channel_name)
+
+    @property
+    def count_followers(self):
+        return self.followers.count()
 
 
 

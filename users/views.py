@@ -62,3 +62,14 @@ def profile(request,pk):
     videos = Video.objects.filter(owner=profile)
     context = {"profile":profile, "videos":videos}
     return render(request, "users/profile_page.html", context)
+
+def subscribe(request, pk):
+    profile = Profile.objects.get(id=pk)
+    profile.followers.add(request.user)
+    return redirect(request.GET["next"] if "next" in request.GET else "posts")
+
+
+def unsubscribe(request, pk):
+    profile = Profile.objects.get(id=pk)
+    profile.followers.remove(request.user)
+    return redirect(request.GET["next"] if "next" in request.GET else "posts")

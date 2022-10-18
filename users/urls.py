@@ -8,6 +8,8 @@ urlpatterns = [
 
     #path("", views.account, name="account"),
     path("profile/<str:pk>/", views.profile, name="profile"),
+    path("subscribe/<str:pk>/",views.subscribe,name="subscribe"),
+    path("unsubscribe/<str:pk>/",views.unsubscribe,name="unsubscribe"),
     
 
 ]

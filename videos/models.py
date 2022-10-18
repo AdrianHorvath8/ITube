@@ -36,6 +36,11 @@ class Video(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def views_count(self):
+        return self.views.count()
+
+
 
 
 

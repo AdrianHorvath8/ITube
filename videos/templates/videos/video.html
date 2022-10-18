@@ -122,7 +122,7 @@
                         </a>
             
                         <a href="{% url 'video' pk=video.id %}">
-                            <p class="video-stats">3.4M views &#183; {{ video.created|timesince}} ago</p>
+                            <p class="video-stats">{{ video.views_count }} views &#183; {{ video.created|timesince}} ago</p>
                         </a>
                     </div>
             
