@@ -37,6 +37,7 @@ def video(request, pk):
     video_list = Video.objects.all()
     video_list = video_list.exclude(id = pk)
     video.views.add(request.user.profile)
+    profile = video.owner
 
     
     form = CommentForm()
@@ -53,5 +54,5 @@ def video(request, pk):
     comments = Comment.objects.filter(video=video)
 
 
-    context = {"video":video, "comments":comments, "video_list":video_list, "form":form}
+    context = {"video":video, "comments":comments, "video_list":video_list, "form":form, "profile":profile}
     return render(request, "videos/video.html", context)

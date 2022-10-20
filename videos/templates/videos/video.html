@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
+{% load static %}
 
 
 <style>
@@ -81,18 +82,149 @@
         font-weight: bold;
         font-size: smaller;
     }
+
+    .video-description-container{
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 3fr;
+    }
+
+    .profile-image{
+        height: 38px;
+        border-radius: 19px;
+        
+        
+    }
+
+    .profile-name{
+        display: inline; 
+        margin-left: 25px;
+        font-size: 15px;
+    }
+
+    .count_followers{
+        font-size: 13px;
+        margin-left: 25px;
+        color: rgb(96, 96, 96);
+    }
+
+    .subscribe{
+        object-position: right;
+        background-color: rgb(229, 8, 8);
+        color: white;
+        border-radius: 3px;
+        border-width: 0px;
+        padding: 8px 13px;
+        font-weight: bold;
+        font-size: smaller;
+    }
+
+    .subscribed{
+        object-position: right;
+        background-color: rgb(239, 239, 239);
+        color: rgb(96, 96, 96);
+        border-radius: 3px;
+        border-width: 0px;
+        padding: 8px 13px;
+        font-weight: bold;
+        font-size: smaller;
+    }
+    .profile-information{
+        display: grid;
+        grid-template-columns: 1fr 7fr 2fr;
+        align-items: center;
+        
+    }
+    h4{
+        margin: 0px;
+    }
+
+    .like-dislike-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 15fr;
+        align-items: center;
+    }
+    .like_dislike{
+        width: 20px;
+    }
 </style>
 
 
     <div class="comment-container">
 
 
+        
+
         <div class="content">
             
             <video class="embed-responsive embed-responsive-16by9" controls="controls" autoplay >
                 <source src="{{video.body.url}}" type="video/mp4" />
             </video>
-            <h3 class="text-left mt-2 mb-2">{{video.title}}</h3>
+
+            <div class="video-description-container">
+
+
+                <div>
+                    <!-- video title -->
+                    <h4 class="text-left mt-2 mb-2">{{video.title}}</h4>
+                </div>
+
+                <div class="profile-information">
+                    <!-- user logo and subscribe -->
+                    <div>
+                        <img class="profile-image" src="{{ profile.profile_image.url }}" alt="">
+                    </div>
+                    
+                    <div>
+                        <p class="profile-name">{{ profile.channel_name }}</p>
+                        {% if profile.count_followers == 0 %}
+                        <p class="count_followers">No subscribers</p>
+                        {% else %}
+                        <p class="count_followers">{{ profile.count_followers }} subscriber{{ profile.count_followers|pluralize:"s" }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        {% if request.user in profile.followers.all %}
+                        <a href="{% url 'unsubscribe' profile.id %}?next={{request.path}}"><button
+                                class="subscribed">SUBSCRIBED</button></a>
+                                <!-- TODO bell -->
+                    
+                        {% else %}
+                        <a href="{% url 'subscribe' profile.id %}?next={{request.path}}"><button class="subscribe">SUBSCRIBE</button></a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="like-dislike-container">
+                    <!-- like dislike  -->
+                    <div>
+                        <!-- like -->
+                        <img class="like_dislike" src="{% static 'images/icons/white_like.png' %}" alt="">
+
+                    </div>
+
+                    <div>
+                        <!-- dislike -->
+                        <img class="like_dislike" src="{% static 'images/icons/white_dislike.png' %}" alt="">
+
+                    </div>
+
+                    <div>
+                        <!-- other -->
+                        <p>share</p>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    <!-- description -->
+                    <p class="video-stats" style="color: black; font-weight: bold; font-size: 13px;" >{{ video.views_count }} views &#183; {{ video.created|timesince}} ago</p>
+                    <p class="text-left mt-2 mb-2">{{video.description}}</p>
+                </div>
+
+
+            </div>
 
             <p class="comment-count">{{ comments.count }} Comments</p> 
 
