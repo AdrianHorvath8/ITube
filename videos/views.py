@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def home(request):
     search_query = ""
+    
 
     if request.GET.get("search_query"):
         search_query = request.GET.get("search_query")
@@ -14,7 +15,7 @@ def home(request):
     viedos = Video.objects.all()
 
     page = request.GET.get("page")
-    paginator = Paginator(viedos, 6)
+    paginator = Paginator(viedos, 9)
 
     try:
         viedos = paginator.page(page)
