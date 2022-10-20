@@ -1,8 +1,9 @@
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Video, Comment
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .forms import CommentForm
 
 def home(request):
     search_query = ""
@@ -36,8 +37,21 @@ def video(request, pk):
     video_list = Video.objects.all()
     video_list = video_list.exclude(id = pk)
     video.views.add(request.user.profile)
+
     
+    form = CommentForm()
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.owner = request.user.profile
+            comment.video = video
+            comment.save()
+            return redirect("video", pk=video.id)
+
     
     comments = Comment.objects.filter(video=video)
-    context = {"video":video, "comments":comments, "video_list":video_list}
+
+
+    context = {"video":video, "comments":comments, "video_list":video_list, "form":form}
     return render(request, "videos/video.html", context)
