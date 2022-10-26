@@ -1,0 +1,57 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="home-container">
+    {% include 'menu.html' %}
+
+
+    <div class="video-container infinite-container">
+        {% for video in videos %}
+
+        <div class="infinite-item">
+            <div>
+                <a href="{% url 'video' pk=video.id %}">
+                    <img class="thumbnail" src="{{ video.thumbnail.url }}" alt="">
+                </a>
+            </div>
+            <div class="video-info-container">
+                <div class="channel-picture">
+                    <a href="{% url 'profile' video.owner.id %}">
+                        <img class="profile-picture" src="{{ video.owner.profile_image.url }}" alt="">
+                    </a>
+                </div>
+
+                <div class="video-info">
+                    <a href="{% url 'video' pk=video.id %}">
+                        <p class="video-title">{{ video.title }}</p>
+                    </a>
+
+                    <a href="{% url 'profile' video.owner.id %}">
+                        <p class="video-author">{{ video.owner }}</p>
+                    </a>
+
+                    <a href="{% url 'video' pk=video.id %}">
+                        <p class="video-stats">{{ video.views_count }} views &#183; {{ video.created|timesince}} ago</p>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% if videos.has_next %}
+        <a class="infinite-more-link" href="?page={{ videos.next_page_number }}">next</a>
+        {% endif %}
+
+    </div>
+
+
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
+    <script src="{% static 'js/scroll_pagination.js' %}"></script>
+    {% endblock content %}

@@ -66,10 +66,12 @@ def profile(request,pk):
 def subscribe(request, pk):
     profile = Profile.objects.get(id=pk)
     profile.followers.add(request.user)
+    request.user.profile.following.add(profile.user)
     return redirect(request.GET["next"] if "next" in request.GET else "posts")
 
 
 def unsubscribe(request, pk):
     profile = Profile.objects.get(id=pk)
     profile.followers.remove(request.user)
+    request.user.profile.following.remove(profile.user)
     return redirect(request.GET["next"] if "next" in request.GET else "posts")

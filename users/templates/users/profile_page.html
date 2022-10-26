@@ -125,7 +125,7 @@
             </div>
 
             <div>
-                {% if request.user in profile.followers.all %}
+                {% if profile.user in request.user.profile.following.all %}
                     <a href="{% url 'unsubscribe' profile.id %}?next={{request.path}}" ><button class="subscribed">SUBSCRIBED</button></a>
                     <!-- TODO<img src="{% static 'images/icons/notifications.svg' %}" alt=""> -->
                     
