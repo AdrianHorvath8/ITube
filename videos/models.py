@@ -40,6 +40,14 @@ class Video(models.Model):
     def views_count(self):
         return self.views.count()
 
+    @property
+    def like_count(self):
+        return self.like.count()
+
+    @property
+    def dislike_count(self):
+        return self.dislike.count()
+
 
 
 

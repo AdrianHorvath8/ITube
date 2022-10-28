@@ -146,6 +146,18 @@
     .like_dislike{
         width: 20px;
     }
+
+    .like_dislike_link{
+        color: #000; 
+        text-decoration: none;
+        border: none;
+    }
+
+    .like_dislike_link:hover{
+        color: #000; 
+        text-decoration: none;
+        border: none;
+    }
 </style>
 
 
@@ -200,35 +212,37 @@
                     <div>
                         <!-- like -->
                         {% if request.user.profile in video.like.all %}
-                            <a href="{% url 'remove_like_video' video.id %}?next={{request.path}}">
+                            <a class="like_dislike_link" href="{% url 'remove_like_video' video.id %}?next={{request.path}}">
                                 <img class="like_dislike" src="{% static 'images/icons/black_like.png' %}" alt="">
+                                {{ video.like_count }}
                             </a>
                         {% else %}
-                            <a href="{% url 'like_video' video.id %}?next={{request.path}}">
+                            <a class="like_dislike_link" href="{% url 'like_video' video.id %}?next={{request.path}}">
                                 <img class="like_dislike" src="{% static 'images/icons/white_like.png' %}" alt="">
                             </a>
+                            {{ video.like_count }}
                         {% endif %}
+
                     </div>
 
                     <div>
                         <!-- dislike -->
                         {% if request.user.profile in video.dislike.all %}
-                            <a href="{% url 'remove_dislike_video' video.id %}?next={{request.path}}">
+                            <a class="like_dislike_link" href="{% url 'remove_dislike_video' video.id %}?next={{request.path}}">
                                 <img class="like_dislike" src="{% static 'images/icons/black_dislike.png' %}" alt="">
                             </a>
-                            
+                            {{ video.dislike_count }}
                         {% else %}
-                            <a href="{% url 'dislike_video' video.id %}?next={{request.path}}">
+                            <a class="like_dislike_link" href="{% url 'dislike_video' video.id %}?next={{request.path}}">
                                 <img class="like_dislike" src="{% static 'images/icons/white_dislike.png' %}" alt="">
                             </a>
+                            {{ video.dislike_count }}
                         {% endif %}
 
                     </div>
 
                     <div>
                         <!-- other -->
-                        <p>share</p>
-
                     </div>
 
                 </div>
