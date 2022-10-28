@@ -61,7 +61,7 @@ p {
 
 .video-preview{
     display: grid;
-    grid-template-columns: 130px 1fr;
+    grid-template-columns: 180px 1fr;
     column-gap: 10px;
-    
+    padding-bottom: 10px;
 }

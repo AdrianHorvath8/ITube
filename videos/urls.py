@@ -10,4 +10,5 @@ urlpatterns = [
     path("dislike_video/<str:pk>/", views.dislike_video, name="dislike_video"),
     path("remove_like_video/<str:pk>/", views.remove_like_video, name="remove_like_video"),
     path("remove_dislike_video/<str:pk>/", views.remove_dislike_video, name="remove_dislike_video"),
+    path("history", views.history, name="history"),
 ]

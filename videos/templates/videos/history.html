@@ -1,0 +1,39 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="home-container">
+        {% include 'menu.html' %}
+        <div class="video_list">
+            {% for video in videos %}
+            <div class="video-preview">
+                <div>
+                    <a href="{% url 'video' pk=video.id %}">
+                        <img class="thumbnail" src="{{ video.thumbnail.url }}" alt="">
+                    </a>
+                </div>
+
+
+                <div class="video-info">
+                    <a href="{% url 'video' pk=video.id %}">
+                        <p class="video-title">{{ video.title }}</p>
+                    </a>
+
+                    <a href="{% url 'profile' video.owner.id %}">
+                        <p class="video-author">{{ video.owner }}</p>
+                    </a>
+
+                    <a href="{% url 'video' pk=video.id %}">
+                        <p class="video-stats">{{ video.views_count }} views &#183; {{ video.created|timesince}} ago</p>
+                    </a>
+                </div>
+
+
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock content %}
