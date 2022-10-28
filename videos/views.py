@@ -78,3 +78,35 @@ def subscriped_videos(request):
     
     context = {"videos":viedos,}
     return render(request, "videos/subscriptions.html", context)
+
+
+def like_video(request, pk):
+    video = Video.objects.get(id = pk)
+
+    if request.user.profile in video.dislike.all():
+        video.dislike.remove(request.user.profile)
+
+    video.like.add(request.user.profile)
+    return redirect(request.GET["next"] if "next" in request.GET else "posts")
+
+def dislike_video(request, pk):
+    video = Video.objects.get(id = pk)
+
+    if request.user.profile in video.like.all():
+        video.like.remove(request.user.profile)
+
+    video.dislike.add(request.user.profile)
+    
+    return redirect(request.GET["next"] if "next" in request.GET else "posts")
+
+def remove_like_video(request, pk):
+    video = Video.objects.get(id = pk)
+    video.like.remove(request.user.profile)
+    
+    return redirect(request.GET["next"] if "next" in request.GET else "posts")
+
+def remove_dislike_video(request, pk):
+    video = Video.objects.get(id = pk)
+    video.dislike.remove(request.user.profile)
+    
+    return redirect(request.GET["next"] if "next" in request.GET else "posts")

@@ -199,13 +199,29 @@
                     <!-- like dislike  -->
                     <div>
                         <!-- like -->
-                        <img class="like_dislike" src="{% static 'images/icons/white_like.png' %}" alt="">
-
+                        {% if request.user.profile in video.like.all %}
+                            <a href="{% url 'remove_like_video' video.id %}?next={{request.path}}">
+                                <img class="like_dislike" src="{% static 'images/icons/black_like.png' %}" alt="">
+                            </a>
+                        {% else %}
+                            <a href="{% url 'like_video' video.id %}?next={{request.path}}">
+                                <img class="like_dislike" src="{% static 'images/icons/white_like.png' %}" alt="">
+                            </a>
+                        {% endif %}
                     </div>
 
                     <div>
                         <!-- dislike -->
-                        <img class="like_dislike" src="{% static 'images/icons/white_dislike.png' %}" alt="">
+                        {% if request.user.profile in video.dislike.all %}
+                            <a href="{% url 'remove_dislike_video' video.id %}?next={{request.path}}">
+                                <img class="like_dislike" src="{% static 'images/icons/black_dislike.png' %}" alt="">
+                            </a>
+                            
+                        {% else %}
+                            <a href="{% url 'dislike_video' video.id %}?next={{request.path}}">
+                                <img class="like_dislike" src="{% static 'images/icons/white_dislike.png' %}" alt="">
+                            </a>
+                        {% endif %}
 
                     </div>
 
