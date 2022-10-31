@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 #from django.contrib.auth.models import User
 import uuid
@@ -68,7 +69,7 @@ class Profile(models.Model):
     short_info = models.CharField(max_length=200, null=True, blank=True)
     following = models.ManyToManyField(MyUser,related_name="following", blank=True)
     followers = models.ManyToManyField(MyUser,related_name="followers", blank=True)
-    history = models.ManyToManyField("videos.Video", blank=True, related_name="history")
+    history = models.ManyToManyField("videos.Video", blank=True, related_name="history", )
     favorite_video = models.ManyToManyField("videos.Video", blank=True)
     facebook_link = models.CharField(max_length=1000, null=True, blank=True)
     instagram_link = models.CharField(max_length=1000, null=True, blank=True)

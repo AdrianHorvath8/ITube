@@ -39,6 +39,9 @@ def video(request, pk):
     video_list = video_list.exclude(id = pk)
     video_list = video_list.order_by("?")[:20]
     video.views.add(request.user.profile)
+
+    if video in request.user.profile.history.all():
+        request.user.profile.history.remove(video)
     request.user.profile.history.add(video)
     profile = video.owner
     comments = Comment.objects.filter(video=video).order_by("-created")
@@ -117,8 +120,14 @@ def remove_dislike_video(request, pk):
 
 
 def history(request):
-    videos = request.user.profile.history.all().order_by("-created")
+    videos = request.user.profile.history.all()[::-1]
     context = {"videos":videos,}
     return render(request, "videos/history.html", context)
 
-    # TODO dokončiť hystory zistiť ako vylistovať video od last seemd  (vo video maš nastavene že sa to prida profilu do hystorie)
+
+def history_remove(request, pk):
+
+    video = Video.objects.get(id=pk)
+    request.user.profile.history.remove(video)
+
+    return redirect(request.GET["next"] if "next" in request.GET else "posts")

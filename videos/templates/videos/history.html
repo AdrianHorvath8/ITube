@@ -16,7 +16,7 @@
 
 
                 <div class="video-info">
-                    <a href="{% url 'video' pk=video.id %}">
+                    <a href="{% url 'video' video.id %}">
                         <p class="video-title">{{ video.title }}</p>
                     </a>
 
@@ -24,11 +24,17 @@
                         <p class="video-author">{{ video.owner }}</p>
                     </a>
 
-                    <a href="{% url 'video' pk=video.id %}">
+                    <a href="{% url 'video' video.id %}">
                         <p class="video-stats">{{ video.views_count }} views &#183; {{ video.created|timesince}} ago</p>
                     </a>
-                </div>
 
+                    <a href="{% url 'history_remove' video.id %}?next={{request.path}} ">
+                        <img style="max-width: 15px;" src="{% static 'images/icons/delete_x_icon.png' %}" alt="">
+                    </a>
+
+
+                </div>
+                <!-- TODO javascript pagination -->
 
 
             </div>
